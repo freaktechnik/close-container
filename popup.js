@@ -14,8 +14,11 @@ Promise.all([
 ]).then(async ([_, containers]) => {
     const list = document.getElementById("containers");
     const noContainer = document.getElementById("default");
+    let replacedNoContainerIcon = false;
+
     noContainer.querySelector(".label").textContent = browser.i18n.getMessage("noContainer");
     noContainer.addEventListener("click", () => closeTabs('firefox-default'));
+
     for(const container of containers) {
         const button = document.createElement("button");
 
@@ -24,6 +27,14 @@ Promise.all([
         icon.style.mask = `url(${container.iconUrl}) center / contain no-repeat`;
         icon.style.background = container.color;
         button.append(icon);
+
+        if(!replacedNoContainerIcon && container.icon === "circle") {
+            const noIcon = noContainer.querySelector(".icon");
+            noIcon.textContent = '';
+            noIcon.style.mask = `url(${container.iconUrl}) center / contain no-repeat`;
+            noIcon.style.background = window.getComputedStyle(noIcon).getPropertyValue('color');
+            replacedNoContainerIcon = true;
+        }
 
         const label = document.createElement("span");
         label.classList.add("label");
