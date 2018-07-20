@@ -1,0 +1,41 @@
+{
+  "manifest_version": 2,
+  "name": "__MSG_name__",
+  "version": "1.0.0",
+  "description": "__MSG_description__",
+  "default_locale": "en",
+  "permissions": [
+    "contextualIdentities",
+    "menus",
+    "cookies"
+  ],
+  "icons": {
+    "64": "icon.svg"
+  },
+  "browser_action": {
+    "default_title": "__MSG_popup__",
+    "default_icon": "icon.svg",
+    "default_area": "tabstrip",
+    "default_popup": "popup.html",
+    "theme_icons": [
+      {
+        "light": "icon-light.svg",
+        "dark": "icon.svg",
+        "size": 64
+      }
+    ],
+    "browser_style": true
+  },
+  "background": {
+    "scripts": [
+      "background.js"
+    ]
+  },
+  "commands": {
+    "_execute_browser_action": {
+      "suggested_key": {
+        "default": "Alt+Shift+W"
+      }
+    }
+  }
+}

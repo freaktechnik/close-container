@@ -1,0 +1,38 @@
+body {
+    background: white;
+    color: #0c0c0d;
+}
+
+ul, li {
+    margin: 0;
+    padding: 0;
+}
+
+ul {
+    margin: .4em 0;
+}
+
+button {
+    width: 100%;
+    border: none;
+    background: transparent;
+    padding: .5em 1em;
+    line-height: 1.2em;
+}
+
+button:hover {
+    background: #ededf0;
+}
+
+.icon {
+    margin-right: .5em;
+    width: 1.2em;
+    height: 1.2em;
+    line-height: 1em;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+#default .icon {
+    color: #737373;
+}

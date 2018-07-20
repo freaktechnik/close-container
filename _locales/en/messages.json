@@ -1,0 +1,26 @@
+{
+    "name": {
+        "message": "Close Container"
+    },
+    "description": {
+        "message": "Close all tabs of a contntainer"
+    },
+    "popup": {
+        "message": "Close Container Tabs (Alt+Shift+W)"
+    },
+    "context": {
+        "message": "Close all tabs in this container"
+    },
+    "namedContext": {
+        "message": "Close all tabs in the \"$CONTAINER$\" container",
+        "placeholders": {
+            "containers": {
+                "content": "$1",
+                "example": "Personal"
+            }
+        }
+    },
+    "noContainer": {
+        "message": "No container"
+    }
+}
