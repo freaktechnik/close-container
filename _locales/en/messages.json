@@ -14,7 +14,7 @@
     "namedContext": {
         "message": "Close all tabs in the \"$CONTAINER$\" container",
         "placeholders": {
-            "containers": {
+            "container": {
                 "content": "$1",
                 "example": "Personal"
             }
