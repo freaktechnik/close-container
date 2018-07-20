@@ -4,7 +4,6 @@ const MENU_ITEM = 'close';
 
 browser.menus.create({
     contexts: [ 'tab' ],
-    enabled: true,
     id: MENU_ITEM,
     enabled: false,
     title: browser.i18n.getMessage("context"),
