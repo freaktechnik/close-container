@@ -9,7 +9,7 @@
         "message": "Container Tabs schließen (Alt+Umsch+W)"
     },
     "context": {
-        "message": "Scließe alle Tabs in diesem Container"
+        "message": "Schließe alle Tabs in diesem Container"
     },
     "namedContext": {
         "message": "Schließe alle Tabs im \"$CONTAINER$\" Container",
