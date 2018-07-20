@@ -3,7 +3,7 @@
         "message": "Close Container"
     },
     "description": {
-        "message": "Close all tabs of a contntainer"
+        "message": "Close all tabs of a container"
     },
     "popup": {
         "message": "Close Container Tabs (Alt+Shift+W)"
