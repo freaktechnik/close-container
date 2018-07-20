@@ -1,7 +1,7 @@
 # Close Container
 ![](icon.svg)
 
-Close all tabs of a contntainer from the tab context menu or a button.
+Close all tabs of a container from the tab context menu or a button.
 
 ## Installation
 
