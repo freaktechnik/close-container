@@ -19,9 +19,9 @@
     "default_popup": "popup.html",
     "theme_icons": [
       {
-        "light": "icon-light.svg",
+        "light": "icon_light.svg",
         "dark": "icon.svg",
-        "size": 64
+        "size": 19
       }
     ],
     "browser_style": true
