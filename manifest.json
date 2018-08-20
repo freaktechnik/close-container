@@ -37,5 +37,10 @@
         "default": "Alt+Shift+W"
       }
     }
+  },
+  "applications": {
+    "gecko": {
+      "strict_min_version": "60.0"
+    }
   }
 }
