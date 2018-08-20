@@ -22,5 +22,17 @@
     },
     "noContainer": {
         "message": "Ohne Container"
+    },
+    "contextMulti": {
+        "message": "Schließe alle Tabs in diesen Containern"
+    },
+    "namedContextMulti": {
+        "message": "Schließe alle Tabs in den $CONTAINERS$ Containern",
+        "placeholders": {
+            "containers": {
+                "content": "$1",
+                "example": "Personal, Ohne Container"
+            }
+        }
     }
 }
