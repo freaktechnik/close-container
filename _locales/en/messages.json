@@ -24,10 +24,10 @@
         "message": "No container"
     },
     "contextMulti": {
-        "message": "Close all tabs in these containers"
+        "message": "Close all tab&s in these containers"
     },
     "namedContextMulti": {
-        "message": "Close all tabs in the $CONTAINERS$ containers",
+        "message": "Close all tab&s in the $CONTAINERS$ containers",
         "placeholders": {
             "containers": {
                 "content": "$1",

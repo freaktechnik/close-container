@@ -141,3 +141,20 @@ browser.menus.onClicked.addListener(async (info, tab) => {
         ));
     }
 });
+
+if(canMulti) {
+    browser.tabs.onHighlighted.addListener(async (tabs) => {
+        let visible = false;
+        if(tabs.tabIds.length > 1) {
+            const highlightedTabs = await browser.tabs.query({
+                windowId: tabs.windowId,
+                highlighted: true
+            });
+            const cookieStores = new Set(highlightedTabs.map((t) => t.cookieStoreId));
+            visible = cookieStores.size > 1;
+        }
+        browser.menus.update(MENU_ITEM_MULTI, {
+            visible
+        });
+    });
+}
