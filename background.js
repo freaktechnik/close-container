@@ -37,6 +37,10 @@ browser.menus.onShown.addListener(async (info, tab) => {
         return;
     }
     const menuId = currentId;
+    let suffix = '';
+    if(tab.pinned) {
+        suffix = ` ${browser.i18n.getMessage("includingPinned")}`;
+    }
     if(info.menuIds.includes(MENU_ITEM)) {
         try {
             const container = await browser.contextualIdentities.get(tab.cookieStoreId);
@@ -44,14 +48,14 @@ browser.menus.onShown.addListener(async (info, tab) => {
                 return;
             }
             browser.menus.update(MENU_ITEM, {
-                title: browser.i18n.getMessage("namedContext", container.name),
+                title: browser.i18n.getMessage("namedContext", container.name) + suffix,
                 enabled: true
             });
         }
         catch(e) {
             // Probably no container
             browser.menus.update(MENU_ITEM, {
-                title: browser.i18n.getMessage("context"),
+                title: browser.i18n.getMessage("context") + suffix,
                 enabled: true
             });
         }
@@ -89,7 +93,7 @@ browser.menus.onShown.addListener(async (info, tab) => {
                 }
                 const names = containers.map((c) => c.name).join(', ');
                 browser.menus.update(MENU_ITEM_MULTI, {
-                    title: browser.i18n.getMessage("namedContextMulti", names),
+                    title: browser.i18n.getMessage("namedContextMulti", names) + suffix,
                     enabled: true,
                     visible: true
                 });
@@ -114,11 +118,10 @@ browser.menus.onHidden.addListener(() => {
 });
 
 browser.menus.onClicked.addListener(async (info, tab) => {
-    //TODO don't close pinned tabs when action isn't on a pinned tab or something like that?
-    let cookieStores = [];
+    let cookieStores = new Set();
     if(info.menuItemId === MENU_ITEM) {
         const { cookieStoreId } = tab;
-        cookieStores.push(cookieStoreId);
+        cookieStores.add(cookieStoreId);
     }
     else if(info.menuItemId === MENU_ITEM_MULTI) {
         const tabs = await browser.tabs.query({
@@ -126,19 +129,24 @@ browser.menus.onClicked.addListener(async (info, tab) => {
             windowId: tab.windowId
         });
         if(tabs.some((t) => t.id === tab.id)) {
-            const containerIds = new Set(tabs.map((t) => t.cookieStoreId));
-            cookieStores = Array.from(containerIds);
+            cookieStores = new Set(tabs.map((t) => t.cookieStoreId));
         }
         else {
-            cookieStores.push(tab.cookieStoreId);
+            cookieStores.add(tab.cookieStoreId);
         }
     }
-    if(cookieStores.length) {
-        await Promise.all(cookieStores.map((cookieStoreId) => browser.tabs.query({
+    if(cookieStores.size) {
+        await Promise.all(Array.from(cookieStores, (cookieStoreId) => {
+            console.log(cookieStoreId);
+            const query = {
                 cookieStoreId
-            })
-            .then((tabsToClose) => browser.tabs.remove(tabsToClose.map((t) => t.id)))
-        ));
+            };
+            if(!tab.pinned) {
+                query.pinned = false;
+            }
+            return browser.tabs.query(query)
+                .then((tabsToClose) => browser.tabs.remove(tabsToClose.map((t) => t.id)))
+        }));
     }
 });
 

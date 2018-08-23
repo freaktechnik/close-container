@@ -34,5 +34,8 @@
                 "example": "Personal, Ohne Container"
             }
         }
+    },
+    "includingPinned": {
+        "message": "(inklusive angeheftete Tabs)"
     }
 }

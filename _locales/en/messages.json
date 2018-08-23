@@ -34,5 +34,8 @@
                 "example": "Personal, None"
             }
         }
+    },
+    "includingPinned": {
+        "message": "(including pinned)"
     }
 }
