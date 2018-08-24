@@ -1,7 +1,11 @@
-const closeTabs = async (cookieStoreId) => {
-    const tabs = await browser.tabs.query({
+const closeTabs = async (cookieStoreId, ev) => {
+    const query = {
         cookieStoreId
-    });
+    };
+    if(!ev.shiftKey) {
+        query.pinned = false;
+    }
+    const tabs = await browser.tabs.query(query);
     if(tabs.length) {
         await browser.tabs.remove(tabs.map((t) => t.id));
     }
@@ -17,7 +21,9 @@ Promise.all([
     let replacedNoContainerIcon = false;
 
     noContainer.querySelector(".label").textContent = browser.i18n.getMessage("noContainer");
-    noContainer.addEventListener("click", () => closeTabs('firefox-default'));
+    noContainer.addEventListener("click", (ev) => closeTabs('firefox-default', ev), {
+        passive: true
+    });
 
     for(const container of containers) {
         const button = document.createElement("button");
@@ -41,7 +47,9 @@ Promise.all([
         label.textContent = container.name;
         button.append(label);
 
-        button.addEventListener("click", () => closeTabs(container.cookieStoreId));
+        button.addEventListener("click", (ev) => closeTabs(container.cookieStoreId, ev), {
+            passive: true
+        });
         const item = document.createElement("li");
         item.append(button);
         noContainer.parentElement.insertAdjacentElement('beforebegin', item);
