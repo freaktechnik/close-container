@@ -1,0 +1,41 @@
+{
+    "name": {
+        "message": "Close Container"
+    },
+    "description": {
+        "message": "关闭一个身份容器内的所有标签页"
+    },
+    "popup": {
+        "message": "关闭指定身份容器的标签页 (Alt+Shift+W)"
+    },
+    "context": {
+        "message": "关闭此身份容器的所有标签页"
+    },
+    "namedContext": {
+        "message": "关闭“$CONTAINER$”身份内的所有标签页",
+        "placeholders": {
+            "container": {
+                "content": "$1",
+                "example": "Personal"
+            }
+        }
+    },
+    "noContainer": {
+        "message": "无身份容器"
+    },
+    "contextMulti": {
+        "message": "关闭这些身份容器内的所有标签页(&S)"
+    },
+    "namedContextMulti": {
+        "message": "关闭 $CONTAINERS$ 个身份容器内的所有标签页(&S)",
+        "placeholders": {
+            "containers": {
+                "content": "$1",
+                "example": "Personal, None"
+            }
+        }
+    },
+    "includingPinned": {
+        "message": "(包括固定标签页)"
+    }
+}
