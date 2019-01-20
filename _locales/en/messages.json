@@ -6,7 +6,7 @@
         "message": "Close all tabs of a container"
     },
     "popup": {
-        "message": "Close Container Tabs (Alt+Shift+W)"
+        "message": "Close Container Tabs"
     },
     "context": {
         "message": "Close &all tabs in this container"
