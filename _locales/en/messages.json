@@ -37,5 +37,8 @@
     },
     "includingPinned": {
         "message": "(including pinned)"
+    },
+    "popupShortcut": {
+        "message": "Open popup to close tabs by container"
     }
 }

@@ -37,5 +37,8 @@
     },
     "includingPinned": {
         "message": "(inklusive angeheftete Tabs)"
+    },
+    "popupShortcut": {
+        "message": "Menü zum schließen von Tabs nach Container öffnen"
     }
 }

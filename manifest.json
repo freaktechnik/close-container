@@ -35,7 +35,8 @@
     "_execute_browser_action": {
       "suggested_key": {
         "default": "Alt+Shift+W"
-      }
+      },
+      "description": "__MSG_popupShortcut__"
     }
   },
   "applications": {
