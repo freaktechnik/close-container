@@ -1,42 +1,45 @@
 "use strict";
 
 const MENU_ITEM = 'close',
-    MENU_ITEM_MULTI = 'close-many';
+    MENU_ITEM_MULTI = 'close-many',
+    SESSION_CURRENT_ID = 'currentId';
 
-browser.menus.create({
-    contexts: [ 'tab' ],
-    id: MENU_ITEM,
-    enabled: false,
-    title: browser.i18n.getMessage("context"),
-    type: 'normal'
-});
+function init() {
+    browser.menus.create({
+        contexts: [ 'tab' ],
+        id: MENU_ITEM,
+        enabled: false,
+        title: browser.i18n.getMessage("context"),
+        type: 'normal'
+    });
 
-let canMulti = false;
+    browser.menus.create({
+        contexts: [ 'tab' ],
+        id: MENU_ITEM_MULTI,
+        enabled: false,
+        title: browser.i18n.getMessage("contextMulti"),
+        type: 'normal',
+        visible: false
+    });
 
-if(browser.tabs.highlight) {
-    try {
-        browser.menus.create({
-            contexts: [ 'tab' ],
-            id: MENU_ITEM_MULTI,
-            enabled: false,
-            title: browser.i18n.getMessage("contextMulti"),
-            type: 'normal',
-            visible: false
-        });
-        canMulti = true;
-    }
-    catch(e) {
-        console.warn('visible not supported yet');
-    }
+    sessionStorage.setItem(SESSION_CURRENT_ID, 0);
 }
 
-let currentId = 0;
+browser.runtime.onStartup.addListener(() => {
+    init();
+});
+
+browser.runtime.onInstalled.addListener((details) => {
+    if(details.reason !== "browser_update") {
+        init();
+    }
+});
 
 browser.menus.onShown.addListener(async (info, tab) => {
     if(!info.menuIds.includes(MENU_ITEM) && !info.menuIds.includes(MENU_ITEM_MULTI)) {
         return;
     }
-    const menuId = currentId;
+    const menuId = sessionStorage.getItem(SESSION_CURRENT_ID) ?? 0;
     let suffix = '';
     if(tab.pinned) {
         suffix = ` ${browser.i18n.getMessage("includingPinned")}`;
@@ -44,6 +47,7 @@ browser.menus.onShown.addListener(async (info, tab) => {
     if(info.menuIds.includes(MENU_ITEM)) {
         try {
             const container = await browser.contextualIdentities.get(tab.cookieStoreId);
+            const currentId = sessionStorage.getItem(SESSION_CURRENT_ID) ?? 0;
             if(currentId != menuId) {
                 return;
             }
@@ -66,6 +70,7 @@ browser.menus.onShown.addListener(async (info, tab) => {
                 highlighted: true,
                 windowId: tab.windowId
             });
+            const currentId = sessionStorage.getItem(SESSION_CURRENT_ID) ?? 0;
             if(currentId != menuId) {
                 return;
             }
@@ -83,6 +88,7 @@ browser.menus.onShown.addListener(async (info, tab) => {
                     return true;
                 });
                 const containers = await Promise.all(filteredIds.map((c) => browser.contextualIdentities.get(c)));
+                const currentId = sessionStorage.getItem(SESSION_CURRENT_ID) ?? 0;
                 if(currentId != menuId) {
                     return;
                 }
@@ -114,7 +120,8 @@ browser.menus.onShown.addListener(async (info, tab) => {
 });
 
 browser.menus.onHidden.addListener(() => {
-    ++currentId;
+    const nextId = Number.parseInt(sessionStorage.getItem(SESSION_CURRENT_ID) ?? 0) + 1;
+    sessionStorage.setItem(SESSION_CURRENT_ID, nextId);
 });
 
 browser.menus.onClicked.addListener(async (info, tab) => {
@@ -137,7 +144,6 @@ browser.menus.onClicked.addListener(async (info, tab) => {
     }
     if(cookieStores.size) {
         await Promise.all(Array.from(cookieStores, (cookieStoreId) => {
-            console.log(cookieStoreId);
             const query = {
                 cookieStoreId
             };
@@ -150,19 +156,17 @@ browser.menus.onClicked.addListener(async (info, tab) => {
     }
 });
 
-if(canMulti) {
-    browser.tabs.onHighlighted.addListener(async (tabs) => {
-        let visible = false;
-        if(tabs.tabIds.length > 1) {
-            const highlightedTabs = await browser.tabs.query({
-                windowId: tabs.windowId,
-                highlighted: true
-            });
-            const cookieStores = new Set(highlightedTabs.map((t) => t.cookieStoreId));
-            visible = cookieStores.size > 1;
-        }
-        browser.menus.update(MENU_ITEM_MULTI, {
-            visible
+browser.tabs.onHighlighted.addListener(async (tabs) => {
+    let visible = false;
+    if(tabs.tabIds.length > 1) {
+        const highlightedTabs = await browser.tabs.query({
+            windowId: tabs.windowId,
+            highlighted: true
         });
+        const cookieStores = new Set(highlightedTabs.map((t) => t.cookieStoreId));
+        visible = cookieStores.size > 1;
+    }
+    browser.menus.update(MENU_ITEM_MULTI, {
+        visible
     });
-}
+});

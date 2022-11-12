@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "__MSG_name__",
-  "version": "1.5.1",
+  "version": "1.5.2",
   "description": "__MSG_description__",
   "default_locale": "en",
   "permissions": [
@@ -29,7 +29,8 @@
   "background": {
     "scripts": [
       "background.js"
-    ]
+    ],
+    "persistent": false
   },
   "commands": {
     "_execute_browser_action": {
@@ -39,9 +40,9 @@
       "description": "__MSG_popupShortcut__"
     }
   },
-  "applications": {
+  "browser_specific_settings": {
     "gecko": {
-      "strict_min_version": "63.0"
+      "strict_min_version": "79.0"
     }
   }
 }

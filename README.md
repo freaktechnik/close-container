@@ -8,7 +8,7 @@ Close all tabs of a container from the tab context menu or a button.
 A stable release version is available here:
 
 
-[![addons.mozilla.org/](https://addons.cdn.mozilla.net/static/img/addons-buttons/AMO-button_2.png)](https://addons.mozilla.org/firefox/addon/close-container/)
+[![addons.mozilla.org/](https://blog.mozilla.org/addons/files/2020/04/get-the-addon-fx-apr-2020.svg)](https://addons.mozilla.org/firefox/addon/close-container/)
 
 To run the in-development version from this repository, you either need to use
 about:debugging or the `web-ext` tool.
