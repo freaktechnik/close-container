@@ -1,5 +1,5 @@
 {
-  "manifest_version": 2,
+  "manifest_version": 3,
   "name": "__MSG_name__",
   "version": "1.5.2",
   "description": "__MSG_description__",
@@ -12,7 +12,7 @@
   "icons": {
     "64": "icon.svg"
   },
-  "browser_action": {
+  "action": {
     "default_title": "__MSG_popup__",
     "default_icon": "icon.svg",
     "default_area": "tabstrip",
@@ -23,17 +23,15 @@
         "dark": "icon.svg",
         "size": 19
       }
-    ],
-    "browser_style": true
+    ]
   },
   "background": {
     "scripts": [
       "background.js"
-    ],
-    "persistent": false
+    ]
   },
   "commands": {
-    "_execute_browser_action": {
+    "_execute_action": {
       "suggested_key": {
         "default": "Alt+Shift+W"
       },
@@ -42,7 +40,7 @@
   },
   "browser_specific_settings": {
     "gecko": {
-      "strict_min_version": "79.0"
+      "strict_min_version": "109.0"
     }
   }
 }

@@ -1,6 +1,24 @@
+:root {
+    --background: white;
+    --text: #0c0c0d;
+    --hover: #ededf0;
+    --hover-text: var(--text);
+    --icon: #737373;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --background: #212124;
+        --text: #ededf0;
+        --hover: #37373a;
+    }
+}
+
 body {
-    background: white;
-    color: #0c0c0d;
+    background: var(--background);
+    color: var(--text);
+    padding: 0;
+    margin: 0;
 }
 
 ul, li {
@@ -18,10 +36,13 @@ button {
     background: transparent;
     padding: .5em 1em;
     line-height: 1.2em;
+    text-align: start;
+    color: var(--text);
 }
 
 button:hover {
-    background: #ededf0;
+    background: var(--hover);
+    color: var(--hover-text);
 }
 
 .icon {
@@ -34,5 +55,5 @@ button:hover {
 }
 
 #default .icon {
-    color: #737373;
+    color: var(--icon);
 }
