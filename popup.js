@@ -31,7 +31,7 @@ Promise.all([
         const icon = document.createElement("span");
         icon.classList.add("icon");
         icon.style.mask = `url(${container.iconUrl}) center / contain no-repeat`;
-        icon.style.background = container.color;
+        icon.style.background = container.colorCode;
         button.append(icon);
 
         if(!replacedNoContainerIcon && container.icon === "circle") {
